@@ -3,16 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineFlix 2026</title>
+    <title>CineFlix Cinema 2026</title>
     <style>
+        /* Variáveis de Cores e Imagem de Fundo */
         :root {
-            --bg-color: #141414;
-            --sidebar-color: #0b0b0b;
-            --accent-color: #e50914;
-            --accent-hover: #ff1a25;
-            --text-color: #ffffff;
-            --text-muted: #aaaaaa;
-            --card-hover-bg: #1f1f1f;
+            --bg-site: #101010;
+            --bg-sidebar: rgba(5, 5, 5, 0.85);
+            --bg-card: rgba(24, 24, 24, 0.8);
+            --text-main: #ffffff;
+            --text-sub: #b3b3b3;
+            --accent: #e50914; 
+            --border-color: rgba(255, 255, 255, 0.08);
+            --hover-item: rgba(40, 40, 40, 0.9);
+            /* Imagem de Fundo de Cinema Otimizada */
+            --bg-image: url('https://www.10wallpaper.com/wallpaper/1366x768/1808/Blue_rays_vector_4K_dark_background_1366x768.jpg');
+        }
+
+        /* Tema Alternativo Roxo Neon */
+        .theme-cyber {
+            --bg-site: #0b0914;
+            --bg-sidebar: rgba(4, 3, 8, 0.85);
+            --bg-card: rgba(20, 17, 38, 0.8);
+            --text-main: #ffffff;
+            --text-sub: #9f9cb0;
+            --accent: #8a2be2; 
+            --border-color: rgba(138, 43, 226, 0.2);
+            --hover-item: rgba(33, 28, 56, 0.9);
+            --bg-image: url('https://unsplash.com');
         }
 
         * {
@@ -20,644 +37,507 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-site);
+            /* Configuração da Imagem de Fundo do Site */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
             display: flex;
             height: 100vh;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* --- MENU LATERAL --- */
-        #sidebar {
-            width: 240px;
-            background-color: var(--sidebar-color);
-            padding: 20px;
+        /* Bloqueio de Anúncios Invasivos e Abas Externas */
+        iframe {
+            sandbox: allow-scripts allow-same-origin allow-forms; 
+            pointer-events: auto;
+        }
+
+        /* Menu Lateral Esquerdo Semi-Transparente */
+        .sidebar {
+            width: 200px;
+            background-color: var(--bg-sidebar);
+            border-right: 5px solid var(--border-color);
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            border-right: 1px solid #222;
+            gap: 6px;
             z-index: 10;
+            backdrop-filter: blur(10px);
         }
 
         .logo {
-            color: var(--accent-color);
             font-size: 24px;
-            font-weight: bold;
-            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--accent);
+            text-align: center;
+            padding-bottom: 20px;
             letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .menu-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .menu-group h3 {
-            font-size: 12px;
-            color: var(--text-muted);
             text-transform: uppercase;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
         }
 
         .menu-item {
-            padding: 12px 15px;
+            padding: 10px 14px;
             border-radius: 6px;
             cursor: pointer;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-sub);
             transition: all 0.2s ease;
-            font-weight: 500;
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            text-align: left;
-            font-size: 15px;
         }
 
         .menu-item:hover, .menu-item.active {
-            background-color: var(--accent-color);
-            color: white;
-            transform: translateX(5px);
+            background-color: var(--hover-item);
+            color: var(--text-main);
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
         }
 
-        /* --- CONTEÚDO PRINCIPAL --- */
-        #main-content {
+        /* Área Principal */
+        .main-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
-            position: relative;
+            overflow: hidden;
         }
 
-        /* --- BARRA TOPO --- */
-        header {
-            padding: 20px 40px;
+        /* Barra Superior */
+        .top-bar {
+            height: 70px;
+            padding: 0 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(20,20,20,0.8), transparent);
-            position: sticky;
-            top: 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(16, 16, 16, 0.4);
+            backdrop-filter: blur(15px);
             z-index: 5;
-            backdrop-filter: blur(10px);
-            gap: 20px;
-        }
-
-        .search-container {
-            flex: 1;
-            max-width: 500px;
-            position: relative;
         }
 
         .search-input {
-            width: 100%;
-            padding: 12px 20px;
-            background-color: #222;
-            border: 1px solid #333;
-            border-radius: 30px;
-            color: white;
+            width: 300px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
             font-size: 14px;
             transition: all 0.3s;
         }
 
         .search-input:focus {
             outline: none;
-            border-color: var(--accent-color);
-            background-color: #2b2b2b;
-            box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+            width: 350px;
         }
 
-        .controls {
+        .controls-right {
             display: flex;
-            gap: 15px;
-            align-items: center;
+            gap: 10px;
         }
 
-        .sort-select {
-            padding: 10px 15px;
-            background-color: #222;
-            border: 1px solid #333;
-            color: white;
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
             border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
+            backdrop-filter: blur(5px);
         }
 
-        .adblock-status {
-            padding: 8px 15px;
-            background-color: #1b4332;
-            color: #52b788;
-            border: 1px solid #2d6a4f;
+        .btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Área de Rolagem do Conteúdo */
+        .content-scroll {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Seção Isolada do Player de Vídeo */
+        .player-section {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            background: #000;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
             border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
+            overflow: hidden;
         }
 
-        /* --- GRADE DE FILMES --- */
-        .catalog-container {
-            padding: 20px 40px 40px 40px;
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
 
-        .catalog-title {
-            font-size: 22px;
-            margin-bottom: 20px;
-        }
-
-        .movie-grid {
+        /* Filmes organizados um do lado do outro (Grid Responsivo) */
+        .movies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 20px; 
         }
 
+        /* Cards Verticais Semitransparentes com Efeito de Fundo */
         .movie-card {
-            background-color: #1a1a1a;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column; 
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            border: 1px solid #252525;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            backdrop-filter: blur(5px); /* Desfoca suavemente o fundo atrás do card */
         }
 
         .movie-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            border-color: var(--accent-color);
-            background-color: var(--card-hover-bg);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background-color: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
         }
 
-        .movie-thumb {
+        .movie-image {
             width: 100%;
-            height: 280px;
+            height: 450px; 
             object-fit: cover;
-            background-color: #333;
+            transition: transform 0.1s ease;
         }
 
-        .movie-info {
-            padding: 15px;
+        .movie-card:hover .movie-image {
+            transform: scale(1.0);
+        }
+
+        .movie-details {
+            padding:15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
         }
 
         .movie-title {
-            font-size: 15px;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .movie-meta {
+        .movie-meta-data {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+            color: var(--text-sub);
         }
 
-        .movie-rating {
-            background-color: #ffb703;
-            color: #000;
+        .rating-badge {
+            color: #ffb61e;
+            font-weight: bold;
+            background: rgba(255, 182, 30, 0.1);
             padding: 2px 6px;
             border-radius: 4px;
-            font-weight: bold;
         }
 
         .movie-synopsis {
             font-size: 12px;
-            color: #cccccc;
+            color: var(--text-sub);
+            line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 3; 
             -webkit-box-orient: vertical;
             overflow: hidden;
-            line-height: 1.4;
-        }
-
-        /* --- PLAYER DE VÍDEO COMPLETO --- */
-        #player-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-        }
-
-        .player-header {
-            padding: 20px 40px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 101;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .btn-back {
-            padding: 12px 24px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .btn-back:hover {
-            background-color: var(--accent-hover);
-            transform: scale(1.05);
-        }
-
-        .player-movie-title {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .video-wrapper {
-            flex: 1;
-            width: 100%;
-            height: 100%;
-        }
-
-        iframe, video {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Adblock alert/proteção simulação */
-        .ad-shield-notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #e50914;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 999;
-            display: none;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MENU LATERAL -->
-    <nav id="sidebar">
-        <div class="logo">CineFlix 2026</div>
+    <!-- Reprodutores de Áudio (Efeitos Sonoros) -->
+    <audio id="audio-hover-card" src="https://www.soundjay.com/buttons_c2026/button-30.mp3" preload="auto"></audio>
+    <audio id="audio-hover-sidebar" src="https://www.soundjay.com/buttons_c2026/button-30.mp3"></audio>
+    <audio id="audio-click-global" src="https://www.soundjay.com/buttons_c2026/button-11.mp3" preload="auto"></audio>
+
+    <!-- MENU CANTO ESQUERDO -->
+    <div class="sidebar" id="sidebarMenu">
+        <div class="logo">DIRTV FILMES</div>
+        <div class="menu-item active" onclick="filterCategory('all', this)">🏠 Início</div>
+        <div class="menu-item" onclick="filterCategory('lançamento', this)">🚀 Lançamento</div>
+        <div class="menu-item" onclick="filterCategory('series', this)">📺 Series</div>
+        <div class="menu-item" onclick="filterCategory('ação', this)">💥 Ação</div>
+        <div class="menu-item" onclick="filterCategory('comedia', this)">😂 Comedia</div>
+        <div class="menu-item" onclick="filterCategory('crime', this)">🕵️ Crime</div>
+        <div class="menu-item" onclick="filterCategory('drama', this)">🎭 Drama</div>
+        <div class="menu-item" onclick="filterCategory('romance', this)">❤️ Romance</div>
+        <div class="menu-item" onclick="filterCategory('infantil', this)">👶 Infantil</div>
+        <div class="menu-item" onclick="filterCategory('infantil', this)"> Terror</div>
+    </div>
+
+    <!-- ÁREA CENTRAL -->
+    <div class="main-container">
         
-        <div class="menu-group">
-            <h3>Navegação</h3>
-            <button class="menu-item active" onclick="filterCategory('inicio')">🏠 Início</button>
-            <button class="menu-item" onclick="filterCategory('lancamentos')">✨ Lançamentos</button>
-            <button class="menu-item" onclick="filterCategory('series')">📺 Séries</button>
-        </div>
-
-        <div class="menu-group">
-            <h3>Gêneros</h3>
-            <button class="menu-item" onclick="filterCategory('acao')">💥 Ação</button>
-            <button class="menu-item" onclick="filterCategory('comedia')">😂 Comédia</button>
-            <button class="menu-item" onclick="filterCategory('crime')">🕵️ Crime</button>
-            <button class="menu-item" onclick="filterCategory('drama')">🎭 Drama</button>
-            <button class="menu-item" onclick="filterCategory('romance')">❤️ Romance</button>
-            <button class="menu-item" onclick="filterCategory('infantil')">🧸 Infantil</button>
-        </div>
-    </nav>
-
-    <!-- ÁREA DE CONTEÚDO -->
-    <main id="main-content">
-        <header>
-            <div class="search-container">
-                <input type="text" id="search-bar" class="search-input" placeholder="Pesquisar filmes ou séries por título ou sinopse..." oninput="handleSearch()">
+        <!-- BARRA SUPERIOR (Pesquisa por Letra e Filtros) -->
+        <div class="top-bar">
+            <div class="search-area">
+                <input type="text" id="movieSearch" class="search-input" placeholder="Pesquise por letra ou nome..." oninput="triggerSearch()">
             </div>
-            <div class="controls">
-                <span class="adblock-status">🛡️ AD-BLOCK ATIVO</span>
-                <select id="sort-filter" class="sort-select" onchange="handleSort()">
-                    <option value="mais_vistos">Mais Vistos</option>
-                    <option value="data">Data de Lançamento</option>
-                    <option value="letra">Ordem Alfabética</option>
-                </select>
-            </div>
-        </header>
-
-        <div class="catalog-container">
-            <h2 id="section-title" class="catalog-title">Principais Recomendações</h2>
-            <div id="movie-grid" class="movie-grid">
-                <!-- Inserido dinamicamente via JS -->
+            
+            <div class="controls-right">
+                <button class="btn" onclick="applySorting('data')">📅 Recentes</button>
+                <button class="btn" onclick="applySorting('vistos')">🔥 Mais Vistos</button>
+                <button class="btn" onclick="applySorting('letra')">🔤 Por Letra (A-Z)</button>
+                <button class="btn" onclick="switchTheme()" style="background: var(--accent); color: white; border: none;">🎨 Mudar Cor</button>
             </div>
         </div>
-    </main>
 
-    <!-- PLAYER DE VÍDEO (TELA CHEIA) -->
-    <div id="player-screen">
-        <div class="player-header">
-            <button class="btn-back" onclick="closePlayer()">← VOLTAR AO INÍCIO</button>
-            <span id="player-title" class="player-movie-title">Nome do Filme</span>
-        </div>
-        <div class="video-wrapper" id="video-container">
-            <!-- Iframe do player injetado dinamicamente -->
+        <!-- Conteúdo Rolável -->
+        <div class="content-scroll">
+            
+            <!-- SEÇÃO DO PLAYER (Botão Voltar ao Início acima do player) -->
+            <div id="playerContainer" class="player-section">
+                <button class="btn" onclick="returnToHome()" style="align-self: flex-start; margin-bottom: 5px;">⬅️ Voltar para o Início</button>
+                <div class="video-wrapper">
+                    <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- FILMES UM DO LADO DO OUTRO -->
+            <div id="moviesGridLocation" class="movies-grid">
+                <!-- Filmes gerados dinamicamente via JS -->
+            </div>
+
         </div>
     </div>
 
     <script>
-        // BANCO DE DADOS DE FILMES (Exemplo com URLs mockadas e dados completos)
-        // Substitua os links do 'playerUrl' pelos seus links reais de players/embeds
-        const moviesData = [
+        // Banco de Dados de Exemplo
+        const moviesDatabase = [
             {
                 id: 1,
                 title: "Maldição da Múmia (2026)",
                 category: "terror",
-                isLancamento: true,
-                isSerie: false,
-                year: 2026,
-                views: 154000,
+                tags: ["lançamento"],
                 rating: "6.3",
-                image: "https://ingresso-a.akamaihd.net/prd/img/movie/maldicao-da-mumia/c4442b6a-12d5-45ba-9ed8-419db45634d8.webp",
+                date: "2026-05-14",
+                views: 54100,
+                img: "data:image/jpeg;base64,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",
                 synopsis: "Uma família se depara com uma múmia ancestral, desencadeando uma aventura sobrenatural que mistura terror e suspense em uma nova versão do monstro clássico",
-                playerUrl: "https://fembed.sx/e/1304313-dub"        
+                videoUrl: "https://fembed.sx/e/1304313"
             },
             {
                 id: 2,
-                title: "A Piada Infinita",
-                category: "comedia",
-                isLancamento: false,
-                isSerie: false,
-                year: 2024,
-                views: 98000,
-                rating: "7.9",
-                image: "https://unsplash.com",
-                synopsis: "Dois comediantes fracassados acidentalmente encontram um roteiro perdido que hipnotiza qualquer um que o leia com risadas incontroláveis.",
-                playerUrl: "https://youtube.com"
+                title: "Maldição da Múmia",
+                category: "terror",
+                tags: ["lançamento"],
+                rating: "6.3",
+                date: "2026-04-16",
+                views: 29000,
+                img: "https://m.media-amazon.com/images/M/MV5BNDhlNTAyYTgtOGRmZS00ZmE0LTk4ZTUtMjk3ZjZhMWE4YWY0XkEyXkFqcGc@._V1_FMjpg_UY2048_.jpg",
+                synopsis: "Uma família se depara com uma múmia ancestral, desencadeando uma aventura sobrenatural que mistura terror e suspense em uma nova versão do monstro clássico",
+                videoUrl: "https://fembed.sx/e/1304313-dub"
             },
             {
                 id: 3,
-                title: "Mindhunter: Nova Era",
-                category: "crime",
-                isLancamento: true,
-                isSerie: true,
-                year: 2026,
-                views: 245000,
-                rating: "9.3",
-                image: "https://unsplash.com",
-                synopsis: "Detetives de elite utilizam novos algoritmos de inteligência artificial em 2026 para rastrear mentes criminosas antes que ajam.",
-                playerUrl: "https://youtube.com"
+                title: "Crônicas Corporativas",
+                category: "drama",
+                tags: ["series"],
+                rating: "8.9",
+                date: "2025-12-01",
+                views: 41200,
+                img: "https://unsplash.com",
+                synopsis: "Uma série dramática e tensa que expõe os segredos de bastidores e as traições de uma grande empresa de tecnologia em 2026.",
+                videoUrl: "https://youtube.com"
             },
             {
                 id: 4,
-                title: "O Peso do Silêncio",
-                category: "drama",
-                isLancamento: false,
-                isSerie: false,
-                year: 2023,
-                views: 45000,
-                rating: "8.1",
-                image: "https://unsplash.com",
-                synopsis: "Uma pianista perde a audição no auge de sua carreira e precisa redescobrir sua conexão com o mundo através das vibrações visuais.",
-                playerUrl: "https://youtube.com"
-            },
-            {
-                id: 5,
-                title: "Conexões Cruzadas",
-                category: "romance",
-                isLancamento: true,
-                isSerie: false,
-                year: 2025,
-                views: 112000,
-                rating: "8.4",
-                image: "https://unsplash.com",
-                synopsis: "Dois cientistas trabalhando em fusos horários opostos descobrem que conseguem compartilhar sonhos durante as fases da lua.",
-                playerUrl: "https://youtube.com"
-            },
-            {
-                id: 6,
-                title: "As Aventuras de Bolt",
-                category: "infantil",
-                isLancamento: false,
-                isSerie: true,
-                year: 2025,
-                views: 189000,
-                rating: "9.0",
-                image: "https://unsplash.com",
-                synopsis: "Um pequeno robô doméstico ganha vida própria e embarca em uma jornada mágica no quintal para salvar os brinquedos esquecidos.",
-                playerUrl: "https://youtube.com"
+                title: "Operação Impacto",
+                category: "ação",
+                tags: [],
+                rating: "7.9",
+                date: "2026-01-15",
+                views: 68000,
+                img: "https://unsplash.com",
+                synopsis: "Ação pura do início ao fim. Um especialista em resgates é contratado para extrair uma testemunha chave de uma zona de perigo extremo.",
+                videoUrl: "https://youtube.com"
             }
         ];
 
-        let currentCategory = 'inicio';
-        let searchQuery = '';
-        let currentSort = 'mais_vistos';
+        let selectedCategory = 'all';
 
-        // --- SISTEMA DE COR E SOM SINTETIZADO (Web Audio API) ---
-        // Evita carregar arquivos MP3 externos e garante som instantâneo
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const audioHoverCard = document.getElementById('audio-hover-card');
+        const audioHoverSidebar = document.getElementById('audio-hover-sidebar');
+        const audioClickGlobal = document.getElementById('audio-click-global');
 
-        function playSound(type) {
-            // Ativa o contexto se estiver em repouso (exigência dos navegadores)
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+        // Ativação dos Sons Customizados
+        function bindSoundEffects() {
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.onmouseenter = () => { audioHoverSidebar.currentTime = 0; audioHoverSidebar.play().catch(()=>{}); };
+                item.addEventListener('click', () => { audioClickGlobal.currentTime = 0; audioClickGlobal.play().catch(()=>{}); });
+            });
 
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
+            document.querySelectorAll('.movie-card').forEach(card => {
+                card.onmouseenter = () => { audioHoverCard.currentTime = 0; audioHoverCard.play().catch(()=>{}); };
+                card.addEventListener('click', () => { audioClickGlobal.currentTime = 0; audioClickGlobal.play().catch(()=>{}); });
+            });
 
-            if (type === 'hover') {
-                // Som sutil e agudo de passagem rápida
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.03, audioCtx.currentTime); // Baixo volume para não irritar
-                gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.1);
-            } else if (type === 'click') {
-                // Som firme de clique
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.15);
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.15);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.15);
-            }
-        }
-
-        // --- ANTI-ANÚNCIOS FORÇADO (SEGURANÇA 2026) ---
-        // Intercepta tentativas de redirecionamento ou abertura de popups abusivos de players externos
-        window.open = function() {
-            triggerAdShieldAlert();
-            return null; // Bloqueia abertura de novas abas
-        };
-
-        function triggerAdShieldAlert() {
-            const shield = document.getElementById('ad-shield');
-            shield.style.display = 'block';
-            setTimeout(() => { shield.style.display = 'none'; }, 3000);
-        }
-
-        // Monitora iframes inseridos para evitar que scripts externos injetem redirects invisíveis
-        window.addEventListener('beforeunload', function (e) {
-            // Impede redirecionamentos automáticos forçados por ads sem interação direta
-            if(document.activeElement.tagName === 'IFRAME') {
-                e.preventDefault();
-                triggerAdShieldAlert();
-                return "Proteção ativa contra redirecionamento de anúncios.";
-            }
-        });
-
-        // --- RENDERIZAÇÃO E FILTROS ---
-        function initApp() {
-            renderMovies();
-            setupAudioEvents();
-        }
-
-        function setupAudioEvents() {
-            // Aplica os gatilhos de som nos itens fixos do menu lateral
-            document.querySelectorAll('.menu-item, .sort-select, .search-input').forEach(element => {
-                element.addEventListener('mouseenter', () => playSound('hover'));
-                element.addEventListener('click', () => playSound('click'));
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.onmouseenter = () => { audioHoverSidebar.currentTime = 0; audioHoverSidebar.play().catch(()=>{}); };
+                btn.addEventListener('click', () => { audioClickGlobal.currentTime = 0; audioClickGlobal.play().catch(()=>{}); });
             });
         }
 
-        function filterCategory(category) {
-            currentCategory = category;
-            
-            // Gerencia classes ativas no menu
-            document.querySelectorAll('.menu-item').forEach(btn => btn.classList.remove('active'));
-            const clickedBtn = event.currentTarget;
-            if(clickedBtn) clickedBtn.classList.add('active');
+        // Renderização dos cards na tela
+        function drawMoviesList(movies) {
+            const container = document.getElementById('moviesGridLocation');
+            container.innerHTML = "";
 
-            // Muda o título da seção de forma dinâmica
-            const titles = {
-                inicio: "Principais Recomendações",
-                lancamentos: "Lançamentos de 2026",
-                series: "Séries Exclusivas",
-                acao: "Filmes de Ação",
-                comedia: "Filmes de Comédia",
-                crime: "Filmes de Crime e Suspense",
-                drama: "Filmes de Drama",
-                romance: "Filmes de Romance",
-                infantil: "Filmes Infantis"
-            };
-            document.getElementById('section-title').innerText = titles[category] || "Filmes";
-
-            renderMovies();
-        }
-
-        function handleSearch() {
-            searchQuery = document.getElementById('search-bar').value.toLowerCase();
-            renderMovies();
-        }
-
-        function handleSort() {
-            currentSort = document.getElementById('sort-filter').value;
-            renderMovies();
-        }
-
-        function renderMovies() {
-            const grid = document.getElementById('movie-grid');
-            grid.innerHTML = '';
-
-            // 1. Filtragem por categoria/gênero/busca
-            let filtered = moviesData.filter(movie => {
-                // Filtro Busca
-                const matchesSearch = movie.title.toLowerCase().includes(searchQuery) || 
-                                      movie.synopsis.toLowerCase().includes(searchQuery);
-                
-                if (!matchesSearch) return false;
-
-                // Filtro Categorias Laterais
-                if (currentCategory === 'inicio') return true;
-                if (currentCategory === 'lancamentos') return movie.isLancamento;
-                if (currentCategory === 'series') return movie.isSerie;
-                return movie.category === currentCategory;
-            });
-
-            // 2. Ordenação (Mais Vistos, Data ou Ordem Alfabética)
-            if (currentSort === 'mais_vistos') {
-                filtered.sort((a, b) => b.views - a.views);
-            } else if (currentSort === 'data') {
-                filtered.sort((a, b) => b.year - a.year);
-            } else if (currentSort === 'letra') {
-                filtered.sort((a, b) => a.title.localeCompare(b.title));
-            }
-
-            // 3. Renderização dos cards estruturados
-            if(filtered.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; color: var(--text-muted); text-align: center; padding: 40px;">Nenhum filme ou série encontrado.</p>`;
+            if(movies.length === 0) {
+                container.innerHTML = `<p style='color: var(--text-sub); padding: 20px;'>Nenhum filme corresponde à pesquisa.</p>`;
                 return;
             }
 
-            filtered.forEach(movie => {
+            movies.forEach(movie => {
                 const card = document.createElement('div');
                 card.className = 'movie-card';
-                card.setAttribute('onclick', `openPlayer('${movie.title}', '${movie.playerUrl}')`);
-                
-                // Eventos de som dinâmicos anexados aos novos elementos de capa
-                card.addEventListener('mouseenter', () => playSound('hover'));
-                card.addEventListener('click', () => playSound('click'));
+                card.addEventListener('click', () => launchVideoPlayer(movie.videoUrl));
 
                 card.innerHTML = `
-                    <img class="movie-thumb" src="${movie.image}" alt="${movie.title}">
-                    <div class="movie-info">
-                        <div class="movie-title">${movie.title}</div>
-                        <div class="movie-meta">
-                            <span>${movie.year}</span>
-                            <span class="movie-rating">★ ${movie.rating}</span>
+                    <img class="movie-image" src="${movie.img}" alt="${movie.title}">
+                    <div class="movie-details">
+                        <h2 class="movie-title">${movie.title}</h2>
+                        <div class="movie-meta-data">
+                            <span>📅 ${new Date(movie.date).getFullYear()}</span>
+                            <span class="rating-badge">⭐ ${movie.rating}</span>
                         </div>
-                        <div class="movie-synopsis">${movie.synopsis}</div>
+                        <p class="movie-synopsis">${movie.synopsis}</p>
                     </div>
                 `;
-                grid.appendChild(card);
+                container.appendChild(card);
             });
+
+            bindSoundEffects();
         }
 
-        // --- SISTEMA INTERATIVO DO PLAYER ---
-        function openPlayer(title, url) {
-            document.getElementById('player-title').innerText = title;
+        // Modo de Busca Dinâmica por Letra ou Nome
+        function triggerSearch() {
+            const searchValue = document.getElementById('movieSearch').value.toLowerCase();
+            const results = moviesDatabase.filter(movie => {
+                const matchText = movie.title.toLowerCase().includes(searchValue);
+                const matchCat = (selectedCategory === 'all' || movie.category === selectedCategory || movie.tags.includes(selectedCategory));
+                return matchText && matchCat;
+            });
+            drawMoviesList(results);
+        }
+
+        // Filtro por Abas do Canto Esquerdo
+        function filterCategory(category, element) {
+            selectedCategory = category;
+            document.getElementById('movieSearch').value = ''; 
+
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            if(category === 'all') {
+                drawMoviesList(moviesDatabase);
+            } else {
+                const filtered = moviesDatabase.filter(movie => movie.category === category || movie.tags.includes(category));
+                drawMoviesList(filtered);
+            }
+            returnToHome(); 
+        }
+
+        // Ordenadores por Data, Cliques/Vistos e Ordem Alfabética
+        function applySorting(criteria) {
+            let listToSort = [...moviesDatabase];
             
-            // Configura o Iframe protegendo com sandbox avançado para cortar anúncios em nível de navegador
-            const container = document.getElementById('video-container');
-            container.innerHTML = `
-                <iframe 
-                    src="${url}" 
-                    allowfullscreen 
-                    scrolling="no"
-                    sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts">
-                </iframe>
-            `;
+            if(selectedCategory !== 'all') {
+                listToSort = listToSort.filter(m => m.category === selectedCategory || m.tags.includes(selectedCategory));
+            }
+
+            if(criteria === 'data') {
+                listToSort.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if(criteria === 'vistos') {
+                listToSort.sort((a, b) => b.views - a.views);
+            } else if(criteria === 'letra') {
+                listToSort.sort((a, b) => a.title.localeCompare(b.title));
+            }
+
+            drawMoviesList(listToSort);
+        }
+
+        // Gerenciamento Inteligente do Player URL Seguro
+        function launchVideoPlayer(url) {
+            const container = document.getElementById('playerContainer');
+            const playerIframe = document.getElementById('mainPlayer');
             
-            document.getElementById('player-screen').style.display = 'flex';
+            playerIframe.src = url;
+            container.style.display = 'flex';
+            container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function closePlayer() {
-            // Para o vídeo limpando o iframe e fecha a tela do player voltando ao início
-            document.getElementById('video-container').innerHTML = '';
-            document.getElementById('player-screen').style.display = 'none';
-            playSound('click');
+        function returnToHome() {
+            const container = document.getElementById('playerContainer');
+            const playerIframe = document.getElementById('mainPlayer');
+            
+            playerIframe.src = ""; 
+            container.style.display = 'none';
         }
 
-        // Inicia o app ao carregar a página
-        window.onload = initApp;
+        // Alternar Cor e Fundo do Site (Troca de Temas)
+        function switchTheme() {
+            document.body.classList.toggle('theme-cyber');
+        }
+
+        window.onload = () => {
+            drawMoviesList(moviesDatabase);
+        };
     </script>
+</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Página Web</title>
+    <style>
+        /* Tela de bloqueio oculta por padrão */
+        #tela-bloqueio {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            text-align: center;
+            padding-top: 20vh;
+            font-family: Arial, sans-serif;
+            z-index: 9999;
+        }
+        .conteudo { padding: 20px; font-family: Arial; }
+    </style>
+</head> 
 </body>
 </html>
