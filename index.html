@@ -636,17 +636,15 @@
 
         // --- SISTEMA INTERATIVO DO PLAYER ---
         function openPlayer(title, url) {
-            document.getElementById('player-title').innerText = title;
-            
-            // Configura o Iframe protegendo com sandbox avançado para cortar anúncios em nível de navegador
+            document.getElementById('player-title').innerText = title;           
+    
             const container = document.getElementById('video-container');
             container.innerHTML = `
                 <iframe 
                     src="${url}" 
                     allowfullscreen 
                     scrolling="no"
-                    sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts">
-                </iframe>
+                           </iframe>
             `;
             
             document.getElementById('player-screen').style.display = 'flex';
