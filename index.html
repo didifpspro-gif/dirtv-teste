@@ -320,9 +320,6 @@
 </head>
 <body>
 
-    <!-- SINALIZADOR ANTI-ANÚNCIOS -->
-    <div id="ad-shield" class="ad-shield-notification">🛡️ Script Anti-Anúncio Forçado: Janela pop-up ou anúncio bloqueado!</div>
-
     <!-- MENU LATERAL -->
     <nav id="sidebar">
         <div class="logo">CineFlix 2026</div>
@@ -636,15 +633,17 @@
 
         // --- SISTEMA INTERATIVO DO PLAYER ---
         function openPlayer(title, url) {
-            document.getElementById('player-title').innerText = title;           
-    
+            document.getElementById('player-title').innerText = title;
+            
+            // Configura o Iframe protegendo com sandbox avançado para cortar anúncios em nível de navegador
             const container = document.getElementById('video-container');
             container.innerHTML = `
                 <iframe 
                     src="${url}" 
                     allowfullscreen 
                     scrolling="no"
-                           </iframe>
+                    sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts">
+                </iframe>
             `;
             
             document.getElementById('player-screen').style.display = 'flex';
