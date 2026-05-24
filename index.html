@@ -16,7 +16,7 @@
             --border-color: rgba(255, 255, 255, 0.08);
             --hover-item: rgba(40, 40, 40, 0.9);
             /* Imagem de Fundo de Cinema Otimizada */
-            --bg-image: url('https://www.10wallpaper.com/wallpaper/1366x768/1808/Blue_rays_vector_4K_dark_background_1366x768.jpg');
+            --bg-image: url('https://cgarafael.weebly.com/uploads/2/5/7/5/25753390/8583291_orig.gif');
         }
 
         /* Tema Alternativo Roxo Neon */
@@ -61,14 +61,14 @@
 
         /* Menu Lateral Esquerdo Semi-Transparente */
         .sidebar {
-            width: 200px;
+            width: 100px;
             background-color: var(--bg-sidebar);
             border-right: 5px solid var(--border-color);
-            padding: 20px 10px;
+            padding: 0px 0px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            z-index: 10;
+            gap: 0px;
+            z-index: 0;
             backdrop-filter: blur(10px);
         }
 
@@ -77,7 +77,7 @@
             font-weight: 800;
             color: var(--accent);
             text-align: center;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -109,7 +109,7 @@
 
         /* Barra Superior */
         .top-bar {
-            height: 70px;
+            height: 50px;
             padding: 0 30px;
             display: flex;
             justify-content: space-between;
@@ -121,7 +121,7 @@
         }
 
         .search-input {
-            width: 300px;
+            width: 210px;
             padding: 10px 16px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
@@ -175,31 +175,31 @@
         .player-section {
             display: none;
             flex-direction: column;
-            gap: 12px;
+            gap: 100px;
             background: #000;
-            padding: 15px;
+            padding: 12px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
+            border: 12px solid var(--border-color);
         }
 
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; 
+            padding-bottom: 50.25%; 
             height: 0;
-            border-radius: 6px;
+            border-radius: 0px;
             overflow: hidden;
         }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
+            top: 0; left: 0; width: 50%; height: 50%; border: 0;
         }
 
         /* Filmes organizados um do lado do outro (Grid Responsivo) */
         .movies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-            gap: 20px; 
+            gap: 100px; 
         }
 
         /* Cards Verticais Semitransparentes com Efeito de Fundo */
@@ -219,12 +219,12 @@
             transform: translateY(-5px);
             border-color: var(--accent);
             background-color: rgba(30, 30, 30, 0.95);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 8cap 25px rgba(0, 0, 0, 0.7);
         }
 
         .movie-image {
             width: 100%;
-            height: 450px; 
+            height: 380px; 
             object-fit: cover;
             transition: transform 0.1s ease;
         }
@@ -243,7 +243,7 @@
 
         .movie-title {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 100;
             color: #fff;
             white-space: nowrap;
             overflow: hidden;
@@ -269,9 +269,9 @@
         .movie-synopsis {
             font-size: 12px;
             color: var(--text-sub);
-            line-height: 1.4;
+            line-height: 1.1;
             display: -webkit-box;
-            -webkit-line-clamp: 3; 
+            -webkit-line-clamp: 5; 
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
